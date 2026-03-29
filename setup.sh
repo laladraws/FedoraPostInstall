@@ -22,6 +22,7 @@ nautilus \
 gnome-calculator \
 gnome-disk-utility \
 gnome-system-monitor \
+gnome-weather \
 fastfetch \
 gnome-tweaks \
 rocm-hip\
