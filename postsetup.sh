@@ -5,3 +5,4 @@ oh-my-posh font install FiraCode
 
 #move and copy
 cp -r .ohmyposh /home/laura/
+cp -r .bashrc /home/laura/
