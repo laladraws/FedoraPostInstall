@@ -24,7 +24,8 @@ gnome-disk-utility \
 gnome-system-monitor \
 fastfetch \
 gnome-tweaks \
-rocm-hip
+rocm-hip\
+unzip
 
 #virtualization
 dnf install @virtualization
