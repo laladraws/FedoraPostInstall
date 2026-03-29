@@ -23,6 +23,7 @@ gnome-calculator \
 gnome-disk-utility \
 gnome-system-monitor \
 gnome-weather \
+gnome-backgrounds \
 fastfetch \
 gnome-tweaks \
 rocm-hip\
