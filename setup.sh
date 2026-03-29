@@ -17,7 +17,7 @@ dnf install -y intel-media-driver
 dnf install \
 gdm \
 gnome-shell \
-gnome-console \
+ptyxis\
 nautilus \
 gnome-calculator \
 gnome-disk-utility \
@@ -28,10 +28,7 @@ rocm-hip\
 unzip
 
 #virtualization
-dnf install @virtualization
-systemctl enable --now libvirtd
-systemctl enable --now virtnetworkd.service
-usermod -aG libvirt $(whoami)
+dnf -y install @virtualization 
 
 #flatpaks
 flatpak install -y bazzar
@@ -43,13 +40,15 @@ flatpak install flathub com.discordapp.Discord -y
 flatpak install flathub com.spotify.Client -y
 flatpak install flathub com.visualstudio.code -y
 
-#extras
-curl -s https://ohmyposh.dev/install.sh | bash -s
-oh-my-posh font install FiraCode
-
 #remover
 dnf remove gnome-tour
 
 #file movement
+systemctl enable --now libvirtd
+systemctl enable --now virtnetworkd.service
+usermod -aG libvirt $(whoami)
+systemctl enable gdm.service
+systemctl set-default graphical.target
 
+reboot now
 
