@@ -33,6 +33,7 @@ dnf -y install @virtualization
 
 #flatpaks
 flatpak install -y bazzar
+flatpak install flathub com.mattjakeman.ExtensionManager -y 
 flatpak install flathub io.mango3d.LycheeSlicer -y
 flatpak install flathub com.vivaldi.Vivaldi -y
 flatpak install flathub com.rtosta.zapzap -y
