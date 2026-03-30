@@ -28,10 +28,10 @@ flatpak install flathub com.mattjakeman.ExtensionManager -y
 flatpak install flathub io.mango3d.LycheeSlicer -y
 flatpak install flathub com.vivaldi.Vivaldi -y
 flatpak install flathub com.rtosta.zapzap -y
-flatpak install flathub com.valvesoftware.Steam -y
 flatpak install flathub com.discordapp.Discord -y
 flatpak install flathub com.spotify.Client -y
 flatpak install flathub com.visualstudio.code -y
+flatpak install flathub io.missioncenter.MissionCenter -y
 
 #remover
 dnf remove -y gnome-tour 
