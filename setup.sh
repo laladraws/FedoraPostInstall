@@ -5,7 +5,7 @@ if ! [ $(id -u) = 0 ]; then
   exit 1
 fi
 
-cp -r dnf.conf /etc/dnf/
+
 
 
 dnf install -y mesa-va-drivers mesa-vdpau-drivers
@@ -33,6 +33,8 @@ flatpak install flathub com.discordapp.Discord -y
 flatpak install flathub com.spotify.Client -y
 flatpak install flathub com.visualstudio.code -y
 flatpak install flathub io.missioncenter.MissionCenter -y
+flatpak install flathub org.freecad.FreeCAD -y
+flatpak install flathub com.vysp3r.ProtonPlus -y
 
 #remover
 dnf remove -y gnome-tour 
@@ -44,5 +46,4 @@ usermod -aG libvirt $(whoami)
 systemctl enable gdm.service
 systemctl set-default graphical.target
 
-reboot now
 
