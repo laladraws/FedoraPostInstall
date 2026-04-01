@@ -5,6 +5,7 @@ if ! [ $(id -u) = 0 ]; then
   exit 1
 fi
 
+cp -r dnf.conf /etc/dnf/
 
 
 dnf install -y mesa-va-drivers mesa-vdpau-drivers
