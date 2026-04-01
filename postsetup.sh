@@ -6,7 +6,7 @@ oh-my-posh font install FiraCode
 #move and copy
 cp -r .ohmyposh /home/laura/
 cp -r .bashrc /home/laura/
-sudo cp -r * /usr/share/gnome-shell/extensions
+sudo cp -r extensions/* /usr/share/gnome-shell/extensions
 cp -r wallpapers /home/laura/Imágenes
 
 #icons
