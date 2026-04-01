@@ -11,4 +11,6 @@ cp -r wallpapers /home/laura/Imágenes
 
 #icong
 git clone https://github.com/vinceliuice/Tela-icon-theme.git /tmp/Tela-icon-theme && bash /tmp/Tela-icon-theme/install.sh -a && rm -rf /tmp/Tela-icon-theme
+
+sudo reboot
   
