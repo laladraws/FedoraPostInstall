@@ -17,10 +17,10 @@ dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$
 
 
 #gnome
-dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks rocm-hip unzip
+dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks rocm-hip unzip steam
 
 #virtualization
-dnf -y install @virtualization gedit htop
+dnf -y install @virtualization gedit htop 
 
 #flatpaks
 flatpak install flathub bazaar -y
