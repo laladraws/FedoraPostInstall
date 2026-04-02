@@ -18,10 +18,12 @@ dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$
 
 
 #gnome
-dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks rocm-hip unzip steam
+dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator 
+dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks rocm-hip unzip steam
+dnf install -y gedit htop gnome-calendar
 
 #virtualization
-dnf -y install @virtualization gedit htop gnome-calendar
+dnf -y install @virtualization 
 
 #flatpaks
 flatpak install flathub bazaar -y
@@ -35,6 +37,7 @@ flatpak install flathub com.visualstudio.code -y
 flatpak install flathub io.missioncenter.MissionCenter -y
 flatpak install flathub org.freecad.FreeCAD -y
 flatpak install flathub com.vysp3r.ProtonPlus -y
+flatpak install flathub org.gnome.Geary -y
 
 #remover
 dnf remove -y gnome-tour 
