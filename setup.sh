@@ -14,8 +14,7 @@ dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-releas
 
 #media
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
-dnf install -y vulkan-loader vulkan-tools gstreamer1-vaapi rocm-opencl ocl-icd
-
+dnf install -y gstreamer1-vaapi rocm-opencl 
 
 
 
