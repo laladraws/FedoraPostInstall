@@ -14,5 +14,8 @@ cp -r wallpapers "$HOME"/Imágenes
 #icons
 git clone https://github.com/vinceliuice/Tela-icon-theme.git /tmp/Tela-icon-theme && bash /tmp/Tela-icon-theme/install.sh -a && rm -rf /tmp/Tela-icon-theme
 
+#claude
+curl -fsSL https://claude.ai/install.sh | bash
+
 sudo reboot
   
