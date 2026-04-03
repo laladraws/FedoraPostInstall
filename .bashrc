@@ -28,7 +28,7 @@ export PATH=$PATH:$HOME/bin
 
 alias updateall='sudo dnf update && sudo dnf upgrade' 
 alias home='cd /home/laura'
-alias updategrid = 'update-desktop-database ~/.local/share/applications'
+alias updategrid='update-desktop-database ~/.local/share/applications'
 
 #eval "$(oh-my-posh init bash --config ~/.ohmyposh/1_shell.omp.json)"
 #eval "$(oh-my-posh init bash --config ~/.ohmyposh/atomicBit.omp.json)"
