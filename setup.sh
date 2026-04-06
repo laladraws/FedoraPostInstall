@@ -22,6 +22,7 @@ dnf install -y gstreamer1-vaapi rocm-opencl
 dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator 
 dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks rocm-hip unzip steam
 dnf install -y gnome-text-editor htop gnome-calendar baobab
+dnf install -y firefox
 
 #virtualization
 dnf -y install @virtualization 
@@ -30,7 +31,6 @@ dnf -y install @virtualization
 flatpak install flathub io.github.kolunmi.Bazaar -y
 flatpak install flathub com.mattjakeman.ExtensionManager -y 
 flatpak install flathub io.mango3d.LycheeSlicer -y
-flatpak install flathub com.vivaldi.Vivaldi -y
 flatpak install flathub com.rtosta.zapzap -y
 flatpak install flathub com.discordapp.Discord -y
 flatpak install flathub com.spotify.Client -y
