@@ -1,0 +1,84 @@
+============================================================
+  COMPARTIR DIRECTORIO EN RED CON SAMBA - ACCESO LIBRE
+============================================================
+
+---------------------------------------
+1. SERVIDOR LINUX
+---------------------------------------
+
+Instalar Samba:
+  sudo apt update && sudo apt install samba avahi-daemon
+
+Crear directorio:
+  sudo mkdir -p /srv/compartido
+  sudo chmod -R 0777 /srv/compartido
+  sudo chown -R nobody:nogroup /srv/compartido
+
+Configurar /etc/samba/smb.conf:
+
+  [global]
+     workgroup = WORKGROUP
+     netbios name = SERVIDOR
+     wins support = yes
+     map to guest = Bad User
+     guest account = nobody
+
+  [Compartido]
+     path = /srv/compartido
+     browseable = yes
+     writable = yes
+     guest ok = yes
+     guest only = yes
+     create mask = 0666
+     directory mask = 0777
+     force user = nobody
+
+Reiniciar servicios:
+  sudo systemctl enable --now smbd nmbd avahi-daemon
+  sudo systemctl restart smbd nmbd
+
+Firewall:
+  sudo ufw allow samba
+
+Verificar:
+  smbclient -L localhost -N
+
+
+---------------------------------------
+2. CLIENTE LINUX - MONTAJE AUTOMÁTICO
+---------------------------------------
+
+Instalar cliente:
+  sudo apt install cifs-utils
+
+Crear punto de montaje:
+  sudo mkdir -p /mnt/compartido
+
+Verificar uid y gid del usuario:
+  id tu_usuario
+
+Agregar a /etc/fstab:
+  //192.168.x.x/Compartido  /mnt/compartido  cifs  guest,uid=1000,gid=1000,iocharset=utf8,_netdev  0  0
+
+Probar sin reiniciar:
+  sudo mount -a
+
+
+---------------------------------------
+3. CLIENTE WINDOWS - MONTAJE AUTOMÁTICO
+---------------------------------------
+
+Ejecutar una vez en CMD como administrador:
+  net use Z: \\192.168.x.x\Compartido /persistent:yes
+
+La unidad Z: aparecerá automáticamente en cada inicio.
+
+
+---------------------------------------
+NOTAS
+---------------------------------------
+- Reemplazar 192.168.x.x por la IP fija del servidor
+- uid=1000 y gid=1000 pueden variar según el usuario Linux
+- El servidor debe tener IP fija (ya configurada)
+
+============================================================

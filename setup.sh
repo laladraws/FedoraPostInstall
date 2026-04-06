@@ -23,6 +23,7 @@ dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator
 dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks rocm-hip unzip steam
 dnf install -y gnome-text-editor htop gnome-calendar baobab
 dnf install -y firefox
+dnf install -y cifs-utils
 
 #virtualization
 dnf -y install @virtualization 
