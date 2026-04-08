@@ -21,7 +21,7 @@ dnf install -y firefox fuse-libs cifs-utils
 dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator 
 dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks  unzip steam 
 dnf install -y gnome-text-editor htop gnome-calendar baobab evince
-
+dnf install -y terminator.noarch
 
 #virtualization
 dnf -y install @virtualization 
