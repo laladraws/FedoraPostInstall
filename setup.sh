@@ -12,18 +12,16 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 
-#media
+#media and libs
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
-dnf install -y gstreamer1-vaapi rocm-opencl 
-
-
+dnf install -y gstreamer1-vaapi rocm-opencl rocm-hip rocm-info
+dnf install -y firefox fuse-libs cifs-utils
 
 #gnome
 dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator 
-dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks rocm-hip unzip steam
+dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather gnome-backgrounds fastfetch gnome-tweaks  unzip steam 
 dnf install -y gnome-text-editor htop gnome-calendar baobab evince
-dnf install -y firefox
-dnf install -y cifs-utils
+
 
 #virtualization
 dnf -y install @virtualization 
@@ -39,7 +37,7 @@ flatpak install flathub com.visualstudio.code -y
 flatpak install flathub io.missioncenter.MissionCenter -y
 flatpak install flathub org.freecad.FreeCAD -y
 flatpak install flathub com.vysp3r.ProtonPlus -y
-flatpak install flathub org.gnome.Geary -y
+
 
 #remover
 dnf remove -y gnome-tour 
