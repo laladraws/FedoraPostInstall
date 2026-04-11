@@ -57,9 +57,13 @@ nmcli connection modify br0 ipv4.method auto ipv6.method auto
 nmcli connection up br0
 
 
+cp -r extensions/* /usr/share/gnome-shell/extensions
+
 echo "Wallpapers"
+
 #wallpapers
-cp ./wallpapers/*.* /usr/share/backgrounds/*.*
+cp ./wallpapers/*.* /usr/share/backgrounds/
+mkdir /usr/share/gnome-background-properties
 
 cat > /usr/share/gnome-background-properties/mis-fondos.xml << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
