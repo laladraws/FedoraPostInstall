@@ -1,0 +1,65 @@
+CAMBIAR WALLPAPERS POR DEFECTO EN GNOME
+========================================
+
+## OPCION 1: Agregar wallpapers al selector de GNOME
+
+Los wallpapers de GNOME estan en:
+  /usr/share/backgrounds/
+  /usr/share/gnome-background-properties/   (archivos XML que los registran)
+
+# Copiar los wallpapers
+cp mis-fondos/*.jpg /usr/share/backgrounds/mis-fondos/
+
+# Crear el XML para que aparezcan en la seleccion de GNOME
+cat > /usr/share/gnome-background-properties/mis-fondos.xml << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Mi Fondo 1</name>
+    <filename>/usr/share/backgrounds/mis-fondos/fondo1.jpg</filename>
+    <options>zoom</options>
+  </wallpaper>
+</wallpapers>
+EOF
+
+
+## OPCION 2: Establecer el wallpaper por defecto para todos los usuarios
+
+# Crear perfil de dconf
+mkdir -p /etc/dconf/profile
+cat > /etc/dconf/profile/user << 'EOF'
+user-db:user
+system-db:local
+EOF
+
+# Crear la base de datos local con el wallpaper por defecto
+mkdir -p /etc/dconf/db/local.d
+cat > /etc/dconf/db/local.d/01-wallpaper << 'EOF'
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/mis-fondos/fondo1.jpg'
+picture-uri-dark='file:///usr/share/backgrounds/mis-fondos/fondo1-dark.jpg'
+picture-options='zoom'
+EOF
+
+# Aplicar cambios
+dconf update
+
+
+## OPCION 3: Quitar los wallpapers de Fedora
+
+dnf remove -y gnome-backgrounds fedora-workstation-backgrounds
+
+
+## RECOMENDACION: Combinar las tres opciones
+
+1. Opcion 3 -> eliminar wallpapers de Fedora
+2. Opcion 1 -> agregar los tuyos al selector
+3. Opcion 2 -> establecer el tuyo como predeterminado
+
+
+## NOTAS
+
+- picture-uri-dark es el fondo usado cuando el modo oscuro esta activo
+- picture-options puede ser: zoom, centered, stretched, wallpaper, spanned
+- dconf update debe ejecutarse despues de modificar /etc/dconf/db/local.d/

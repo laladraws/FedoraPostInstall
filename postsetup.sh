@@ -9,7 +9,6 @@ oh-my-posh font install FiraCode
 cp -r .ohmyposh "$HOME"/
 cp -r .bashrc "$HOME"/
 sudo cp -r extensions/* /usr/share/gnome-shell/extensions
-cp -r wallpapers "$HOME"/Imágenes
 
 #icons
 git clone https://github.com/vinceliuice/Tela-icon-theme.git /tmp/Tela-icon-theme && bash /tmp/Tela-icon-theme/install.sh -a && rm -rf /tmp/Tela-icon-theme
