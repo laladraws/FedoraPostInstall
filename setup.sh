@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# set -euo pipefail
 ##### CHECK FOR SUDO or ROOT ##################################
 if ! [ $(id -u) = 0 ]; then
   echo "This script must be run as sudo or root, try again..."
@@ -10,7 +10,7 @@ fi
 dnf install -y flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-dnf copr enable wehagy/protonplus
+dnf copr enable wehagy/protonplus -y
 
 #media and libs
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
@@ -22,7 +22,6 @@ dnf install -y protonplus
 dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator 
 dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather fastfetch gnome-tweaks  unzip steam 
 dnf install -y gnome-text-editor htop gnome-calendar baobab evince
-dnf install -y terminator.noarch
 
 #virtualization
 dnf -y install @virtualization 
@@ -57,6 +56,8 @@ nmcli connection add type ethernet ifname enp6s0 con-name br0-slave master br0
 nmcli connection modify br0 ipv4.method auto ipv6.method auto
 nmcli connection up br0
 
+
+echo "Wallpapers"
 #wallpapers
 cp ./wallpapers/*.* /usr/share/backgrounds/*.*
 
@@ -135,3 +136,4 @@ cat > /usr/share/gnome-background-properties/mis-fondos.xml << 'EOF'
     <options>zoom</options>
   </wallpaper>  
 </wallpapers>
+EOF
