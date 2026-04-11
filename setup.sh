@@ -27,6 +27,7 @@ dnf install -y gnome-text-editor htop gnome-calendar baobab evince
 dnf -y install @virtualization 
 
 #flatpaks
+flatpak install flathub org.gnome.Boxes -y
 flatpak install flathub io.github.kolunmi.Bazaar -y
 flatpak install flathub com.mattjakeman.ExtensionManager -y 
 flatpak install flathub io.mango3d.LycheeSlicer -y
@@ -141,3 +142,5 @@ cat > /usr/share/gnome-background-properties/mis-fondos.xml << 'EOF'
   </wallpaper>  
 </wallpapers>
 EOF
+
+dconf load /org/gnome/shell/extensions/ < gnome-extensions-backup.conf
