@@ -4,6 +4,7 @@ set -euo pipefail
 #oh-my-posh
 curl -s https://ohmyposh.dev/install.sh | bash -s
 oh-my-posh font install FiraCode
+oh-my-posh font install IosevkaTerm
 
 #move and copy
 cp -r .ohmyposh "$HOME"/
