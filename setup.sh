@@ -14,7 +14,7 @@ dnf copr enable wehagy/protonplus -y
 
 #media and libs
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
-dnf install -y gstreamer1-vaapi rocm-opencl rocm-hip rocm-info
+dnf install -y gstreamer1-vaapi rocm-opencl rocm-hip rocminfo
 dnf install -y firefox fuse-libs cifs-utils
 dnf install -y protonplus
 
