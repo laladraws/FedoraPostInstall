@@ -11,6 +11,9 @@ dnf install -y flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 dnf copr enable wehagy/protonplus -y
+#wifi
+dnf install iwl*-firmware
+
 
 #media and libs
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
