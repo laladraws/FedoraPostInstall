@@ -42,6 +42,7 @@ flatpak install flathub io.missioncenter.MissionCenter -y
 flatpak install flathub org.freecad.FreeCAD -y
 flatpak install flathub com.vysp3r.ProtonPlus -y
 flatpak install flathub com.heroicgameslauncher.hgl -y
+flatpak install flathub com.github.tchx84.Flatseal -y
 
 #remover
 dnf remove -y gnome-tour 
