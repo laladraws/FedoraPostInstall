@@ -12,8 +12,14 @@ GID_USER=1000                            # GID de tu usuario
 
 # ============================================================
 
+# Validar que las variables fueron editadas
+if [[ "$IP" == "192.168.x.x" ]] || [[ "$MOUNT" == "/home/tu_usuario/Compartido" ]]; then
+    echo "Error: Editá las variables de configuración al inicio del script antes de ejecutarlo."
+    exit 1
+fi
+
 OPTIONS="guest,noperm,uid=${UID_USER},gid=${GID_USER},iocharset=utf8,vers=3.0,_netdev"
-ENTRY="//${IP}/${SHARE}  ${MOUNT}  cifs  ${OPTIONS}  0  0"
+ENTRY="//${IP}/${SHARE} ${MOUNT} cifs ${OPTIONS} 0 0"
 
 # Verificar que se ejecuta como root
 if [ "$EUID" -ne 0 ]; then
@@ -24,7 +30,7 @@ fi
 # Verificar que cifs-utils está instalado
 if ! command -v mount.cifs &> /dev/null; then
     echo "Instalando cifs-utils..."
-    apt install -y cifs-utils
+    dnf install -y cifs-utils
 fi
 
 # Crear punto de montaje si no existe
@@ -41,6 +47,10 @@ else
     echo "Ya existe una entrada para //${IP}/${SHARE} en fstab, no se modificó"
 fi
 
-# Montar
+# Montar solo el punto especificado
 echo "Montando..."
-mount -a && echo "✓ Montado correctamente en $MOUNT" || echo "✗ Error al montar, revisá los parámetros"
+if mount "$MOUNT"; then
+    echo "✓ Montado correctamente en $MOUNT"
+else
+    echo "✗ Error al montar, revisá los parámetros"
+fi

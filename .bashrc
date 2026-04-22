@@ -1,4 +1,4 @@
--# .bashrc
+# .bashrc
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -24,17 +24,15 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-export PATH=$PATH:$HOME/bin
-
-alias updateall='sudo dnf update && sudo dnf upgrade' 
-alias home='cd /home/laura'
+alias updateall='sudo dnf upgrade'
+alias home='cd "$HOME"'
 alias updategrid='update-desktop-database ~/.local/share/applications'
 
 #eval "$(oh-my-posh init bash --config ~/.ohmyposh/1_shell.omp.json)"
 #eval "$(oh-my-posh init bash --config ~/.ohmyposh/atomicBit.omp.json)"
 eval "$(oh-my-posh init bash --config ~/.ohmyposh/clean-detailed.omp.json)"
 #eval "$(oh-my-posh init bash --config ~/.ohmyposh/hul10.omp.json)"
-·eval "$(oh-my-posh init bash --config ~/.ohmyposh/M365Princess.omp.json)"
+#eval "$(oh-my-posh init bash --config ~/.ohmyposh/M365Princess.omp.json)"
 
 fastfetch
 

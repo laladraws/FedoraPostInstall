@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# set -euo pipefail
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ##### CHECK FOR SUDO or ROOT ##################################
-if ! [ $(id -u) = 0 ]; then
+if ! [ "$(id -u)" = 0 ]; then
   echo "This script must be run as sudo or root, try again..."
   exit 1
 fi
@@ -9,10 +10,13 @@ fi
 #Add repositories
 dnf install -y flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+FEDORA_VERSION=$(rpm -E %fedora)
+dnf install -y \
+  "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm" \
+  "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VERSION}.noarch.rpm"
 dnf copr enable wehagy/protonplus -y
 #wifi
-dnf install iwl*-firmware
+dnf install -y iwl*-firmware
 
 
 #media and libs
@@ -40,7 +44,6 @@ flatpak install flathub com.spotify.Client -y
 flatpak install flathub com.visualstudio.code -y
 flatpak install flathub io.missioncenter.MissionCenter -y
 flatpak install flathub org.freecad.FreeCAD -y
-flatpak install flathub com.vysp3r.ProtonPlus -y
 flatpak install flathub com.heroicgameslauncher.hgl -y
 flatpak install flathub com.github.tchx84.Flatseal -y
 
@@ -50,25 +53,35 @@ dnf remove -y gnome-tour
 #file movement
 systemctl enable --now libvirtd
 systemctl enable --now virtnetworkd.service
-usermod -aG libvirt "$SUDO_USER"
+if [ -n "${SUDO_USER:-}" ]; then
+    usermod -aG libvirt "$SUDO_USER"
+else
+    echo "Warning: SUDO_USER no está definido. Agregá tu usuario manualmente: usermod -aG libvirt <usuario>"
+fi
 systemctl enable gdm.service
 systemctl set-default graphical.target
 
 #bridge network for QEMU/KVM
+ETH_IFACE="${ETH_IFACE:-$(ip route show default | awk '/default/ {print $5; exit}')}"
+if nmcli connection show br0 &>/dev/null; then
+    echo "Bridge br0 ya existe, omitiendo creación"
+else
+    nmcli connection add type bridge ifname br0 con-name br0
+    nmcli connection add type ethernet ifname "$ETH_IFACE" con-name br0-slave master br0
+    nmcli connection modify br0 ipv4.method auto ipv6.method auto
+    nmcli connection up br0
+fi
 
-nmcli connection add type bridge ifname br0 con-name br0
-nmcli connection add type ethernet ifname enp6s0 con-name br0-slave master br0
-nmcli connection modify br0 ipv4.method auto ipv6.method auto
-nmcli connection up br0
 
-
-cp -r extensions/* /usr/share/gnome-shell/extensions
+if [ -d "$SCRIPT_DIR/extensions" ] && [ "$(ls -A "$SCRIPT_DIR/extensions")" ]; then
+    cp -r "$SCRIPT_DIR/extensions/"* /usr/share/gnome-shell/extensions/
+fi
 
 echo "Wallpapers"
 
 #wallpapers
-cp ./wallpapers/*.* /usr/share/backgrounds/
-mkdir /usr/share/gnome-background-properties
+cp "$SCRIPT_DIR/wallpapers/"* /usr/share/backgrounds/
+mkdir -p /usr/share/gnome-background-properties
 
 cat > /usr/share/gnome-background-properties/mis-fondos.xml << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -147,4 +160,8 @@ cat > /usr/share/gnome-background-properties/mis-fondos.xml << 'EOF'
 </wallpapers>
 EOF
 
-dconf load /org/gnome/shell/extensions/ < gnome-extensions-backup.conf
+if [ -n "${SUDO_USER:-}" ]; then
+    sudo -u "$SUDO_USER" dconf load /org/gnome/shell/extensions/ < "$SCRIPT_DIR/gnome-extensions-backup.conf"
+else
+    echo "Warning: SUDO_USER no está definido. Aplicá la configuración de extensiones manualmente."
+fi
