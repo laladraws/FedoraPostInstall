@@ -143,3 +143,13 @@ rm -rf /tmp/Tela-icon-theme
 cp -r "$SCRIPT_DIR/.ohmyposh" "$HOME"/
 cp "$HOME/.bashrc" "$HOME/.bashrc.bak"
 cp "$SCRIPT_DIR/.bashrc" "$HOME/.bashrc"
+
+
+# 1. Create the extensions directory inside your default profile folder
+mkdir -p ~/.mozilla/firefox/*.default*/extensions/
+
+# 2. Download Bitwarden
+wget -O ~/.mozilla/firefox/*.default*/extensions/\{446900e4-71c2-419f-a6a7-df9c091e268b\}.xpi https://mozilla.org
+
+# 3. Download Tab Override
+wget -O ~/.mozilla/firefox/*.default*/extensions/taboverride@sorenhansen.ch.xpi https://mozilla.org
