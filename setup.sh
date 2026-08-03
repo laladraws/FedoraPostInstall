@@ -15,23 +15,25 @@ dnf install -y \
   "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm" \
   "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VERSION}.noarch.rpm"
 dnf copr enable wehagy/protonplus -y
-#wifi
-dnf install -y iwl*-firmware
+
 
 
 #media and libs
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
 dnf install -y gstreamer1-vaapi rocm-opencl rocm-hip rocminfo
-dnf install -y firefox fuse-libs cifs-utils
-dnf install -y protonplus
+dnf install -y firefox fuse-libs cifs-utils unzip
+dnf install -y protonplus fastfetch baobab htop evince steam remmina
+
+#wifi
+dnf install -y iwl*-firmware
 
 #gnome
 dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator 
-dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather fastfetch gnome-tweaks  unzip steam 
-dnf install -y gnome-text-editor htop gnome-calendar baobab evince
+dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather  gnome-tweaks    
+dnf install -y gnome-text-editor  gnome-calendar  
 
-#virtualization
-dnf -y install @virtualization 
+systemctl enable gdm.service
+systemctl set-default graphical.target
 
 #flatpaks
 flatpak install flathub org.gnome.Boxes -y
@@ -50,34 +52,6 @@ flatpak install flathub com.github.tchx84.Flatseal -y
 #remover
 dnf remove -y gnome-tour 
 
-#file movement
-systemctl enable --now libvirtd
-systemctl enable --now virtnetworkd.service
-if [ -n "${SUDO_USER:-}" ]; then
-    usermod -aG libvirt "$SUDO_USER"
-else
-    echo "Warning: SUDO_USER no está definido. Agregá tu usuario manualmente: usermod -aG libvirt <usuario>"
-fi
-systemctl enable gdm.service
-systemctl set-default graphical.target
-
-#bridge network for QEMU/KVM
-ETH_IFACE="${ETH_IFACE:-$(ip route show default | awk '/default/ {print $5; exit}')}"
-if nmcli connection show br0 &>/dev/null; then
-    echo "Bridge br0 ya existe, omitiendo creación"
-else
-    nmcli connection add type bridge ifname br0 con-name br0
-    nmcli connection add type ethernet ifname "$ETH_IFACE" con-name br0-slave master br0
-    nmcli connection modify br0 ipv4.method auto ipv6.method auto
-    nmcli connection up br0
-fi
-
-
-if [ -d "$SCRIPT_DIR/extensions" ] && [ "$(ls -A "$SCRIPT_DIR/extensions")" ]; then
-    cp -r "$SCRIPT_DIR/extensions/"* /usr/share/gnome-shell/extensions/
-fi
-
-echo "Wallpapers"
 
 #wallpapers
 cp "$SCRIPT_DIR/wallpapers/"* /usr/share/backgrounds/
@@ -160,8 +134,3 @@ cat > /usr/share/gnome-background-properties/mis-fondos.xml << 'EOF'
 </wallpapers>
 EOF
 
-if [ -n "${SUDO_USER:-}" ]; then
-    sudo -u "$SUDO_USER" dconf load /org/gnome/shell/extensions/ < "$SCRIPT_DIR/gnome-extensions-backup.conf"
-else
-    echo "Warning: SUDO_USER no está definido. Aplicá la configuración de extensiones manualmente."
-fi
