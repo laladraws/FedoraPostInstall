@@ -9,32 +9,31 @@ fi
 
 #Add repositories
 dnf install -y flatpak
-
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 FEDORA_VERSION=$(rpm -E %fedora)
 dnf install -y \
   "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm" \
   "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VERSION}.noarch.rpm"
-
 dnf copr enable wehagy/protonplus -y
-dnf copr enable zhangyi6324/noctalia-shell -y
+
+
 
 #media and libs
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
 dnf install -y gstreamer1-vaapi rocm-opencl rocm-hip rocminfo
 dnf install -y firefox fuse-libs cifs-utils unzip
 dnf install -y protonplus fastfetch baobab htop evince steam remmina
-dnf install -y pipewire wireplumber
-
-
-
-sudo dnf install hyprland noctalia-shell quickshell -y
-
-sudo dnf install seatd foot -y
-
 
 #wifi
 dnf install -y iwl*-firmware
+
+#gnome
+dnf install -y gdm gnome-shell ptyxis nautilus gnome-calculator 
+dnf install -y gnome-disk-utility gnome-system-monitor gnome-weather  gnome-tweaks    
+dnf install -y gnome-text-editor  gnome-calendar  
+
+systemctl enable gdm.service
+systemctl set-default graphical.target
 
 #flatpaks
 flatpak install flathub org.gnome.Boxes -y
@@ -52,8 +51,8 @@ flatpak install flathub com.github.tchx84.Flatseal -y
 flatpak install flathub com.orcaslicer.OrcaSlicer -y
 
 #remover
-sudo systemctl enable --now seatd
-sudo usermod -aG video,input $USER
+dnf remove -y gnome-tour 
+
 
 #wallpapers
 cp "$SCRIPT_DIR/wallpapers/"* /usr/share/backgrounds/
@@ -136,3 +135,11 @@ cat > /usr/share/gnome-background-properties/mis-fondos.xml << 'EOF'
 </wallpapers>
 EOF
 
+#icons
+git clone https://github.com/vinceliuice/Tela-icon-theme.git /tmp/Tela-icon-theme
+bash /tmp/Tela-icon-theme/install.sh -a
+rm -rf /tmp/Tela-icon-theme
+
+cp -r "$SCRIPT_DIR/.ohmyposh" "$HOME"/
+cp "$HOME/.bashrc" "$HOME/.bashrc.bak"
+cp "$SCRIPT_DIR/.bashrc" "$HOME/.bashrc"
