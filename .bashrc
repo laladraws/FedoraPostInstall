@@ -31,7 +31,6 @@ alias home='cd /home/laura'
 alias updategrid='update-desktop-database ~/.local/share/applications'
 alias mediaserver='ssh laura@192.168.1.200'
 alias piserver='ssh laura@192.168.1.210'
-alias goclaude='cd /home/laura/claudeworkdir && claude'
 
 #eval "$(oh-my-posh init bash --config ~/.ohmyposh/1_shell.omp.json)"
 #eval "$(oh-my-posh init bash --config ~/.ohmyposh/atomicBit.omp.json)"

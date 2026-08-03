@@ -21,8 +21,8 @@ dnf copr enable wehagy/protonplus -y
 #media and libs
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
 dnf install -y gstreamer1-vaapi rocm-opencl rocm-hip rocminfo
-dnf install -y firefox fuse-libs cifs-utils unzip
-dnf install -y protonplus fastfetch baobab htop evince steam remmina
+dnf install -y firefox fuse-libs cifs-utils unzip pip
+dnf install -y protonplus fastfetch baobab htop evince steam remmina wget
 
 #wifi
 dnf install -y iwl*-firmware
@@ -52,6 +52,25 @@ flatpak install flathub com.orcaslicer.OrcaSlicer -y
 
 #remover
 dnf remove -y gnome-tour 
+
+#extensiones 
+
+ dnf install  -y gnome-shell-extension-apps-menu.noarch  #Application menu for GNOME Shell
+ dnf install  -y gnome-shell-extension-background-logo.noarch  #  Background logo extension for GNOME Shell
+ dnf install  -y gnome-shell-extension-caffeine.noarch  # Disable the screen saver and auto suspend in gnome shell
+ dnf install  -y gnome-shell-extension-common.noarch  #   Files common to GNOME Shell Extensions
+ dnf install  -y gnome-shell-extension-dash-to-panel.noarch  #    Integrated icon taskbar and status panel for Gnome Shell
+ dnf install  -y gnome-shell-extension-just-perfection.noarch  #  GNOME Shell extension to change behavior and disable UI elements
+ dnf install  -y gnome-shell-extension-workspace-indicator.noarch  #      Workspace indicator for GNOME Shell
+
+
+# gnome-extensions enable gnome-shell-extension-apps-menu.noarch  #Application menu for GNOME Shell
+# gnome-extensions enable gnome-shell-extension-background-logo.noarch  #  Background logo extension for GNOME Shell
+# gnome-extensions enable gnome-shell-extension-caffeine.noarch  # Disable the screen saver and auto suspend in gnome shell
+# gnome-extensions enable gnome-shell-extension-common.noarch  #   Files common to GNOME Shell Extensions
+# gnome-extensions enable gnome-shell-extension-dash-to-panel.noarch  #    Integrated icon taskbar and status panel for Gnome Shell
+# gnome-extensions enable gnome-shell-extension-just-perfection.noarch  #  GNOME Shell extension to change behavior and disable UI elements
+# gnome-extensions enable gnome-shell-extension-workspace-indicator.noarch  #      Workspace indicator for GNOME Shell
 
 
 #wallpapers
@@ -145,11 +164,4 @@ cp "$HOME/.bashrc" "$HOME/.bashrc.bak"
 cp "$SCRIPT_DIR/.bashrc" "$HOME/.bashrc"
 
 
-# 1. Create the extensions directory inside your default profile folder
-mkdir -p ~/.mozilla/firefox/*.default*/extensions/
 
-# 2. Download Bitwarden
-wget -O ~/.mozilla/firefox/*.default*/extensions/\{446900e4-71c2-419f-a6a7-df9c091e268b\}.xpi https://mozilla.org
-
-# 3. Download Tab Override
-wget -O ~/.mozilla/firefox/*.default*/extensions/taboverride@sorenhansen.ch.xpi https://mozilla.org
