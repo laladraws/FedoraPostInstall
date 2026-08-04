@@ -20,7 +20,7 @@ dnf copr enable wehagy/protonplus -y
 
 #media and libs
 dnf install -y mesa-dri-drivers mesa-vulkan-drivers mesa-va-drivers ffmpeg
-dnf install -y gstreamer1-vaapi rocm-opencl rocm-hip rocminfo
+dnf install -y gstreamer1-vaapi rocm-opencl rocm-hip rocminfo samba
 dnf install -y firefox fuse-libs cifs-utils unzip pip
 dnf install -y protonplus fastfetch baobab htop evince steam remmina wget
 
@@ -163,5 +163,8 @@ cp -r "$SCRIPT_DIR/.ohmyposh" "$HOME"/
 cp "$HOME/.bashrc" "$HOME/.bashrc.bak"
 cp "$SCRIPT_DIR/.bashrc" "$HOME/.bashrc"
 
+systemctl enable smb --now
 
+firewall-cmd --permanent --add-service=samba
 
+firewall-cmd --reload
